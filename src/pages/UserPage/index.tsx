@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers } from "../../api/api"; 
-import type { User } from "../../pages/UserPage/types";
+import { fetchUsers } from "../../services/service";
+import type { User } from "../../common/interface";
+import UserListTable from "../../components/table/index"; // import new component
 
 const UserTable: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -32,30 +33,7 @@ const UserTable: React.FC = () => {
     return <div className="alert alert-danger">{error}</div>;
   }
 
-  return (
-    <div className="table-responsive">
-      <table className="table table-striped table-bordered">
-        <thead className="table-dark">
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <UserListTable users={users} />;
 };
 
 export default UserTable;

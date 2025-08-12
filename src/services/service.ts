@@ -8,6 +8,11 @@ const user = axios.create({
 })
 
 export async function fetchUsers(): Promise<User[]> {
-  const res = await user.get<User[]>('/users')
-  return res.data
+  try{
+  const response = await user.get<User[]>('/users')
+  return response.data
+  } catch (error) {
+    console.error("Error fetching users:", error)
+    throw new Error("Failed to fetch users")
+  }
 }
